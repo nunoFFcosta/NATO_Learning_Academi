@@ -25,4 +25,5 @@ NATO_Learning_Academi/
 - HTML5
 - CSS3
 - JavaScript
-- Bootstrap 5.2.3
+- Material Symbols Icons
+- Google Fonts (Inter)

@@ -447,6 +447,68 @@ body {
     gap: 24px;
 }
 
+.cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cards-list .card-item {
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.cards-list .card-top {
+    order: 4;
+    width: auto;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+}
+
+.cards-list .card-top .role-badge {
+    display: none;
+}
+
+.cards-list .card-avatar-wrapper {
+    order: 1;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.cards-list .card-avatar {
+    width: 48px;
+    height: 48px;
+}
+
+.cards-list .team-badge {
+    width: 16px;
+    height: 16px;
+    bottom: -2px;
+    right: -2px;
+}
+
+.cards-list .team-badge .material-symbols-rounded {
+    font-size: 10px;
+}
+
+.cards-list .card-info {
+    order: 2;
+    flex: 1;
+    text-align: left;
+    min-width: 0;
+    margin-left: 12px;
+}
+
+.cards-list .card-item > .role-badge {
+    order: 3;
+    margin-left: auto;
+    margin-right: 12px;
+}
+
 .card-item {
     background: #fff;
     border-radius: 8px;

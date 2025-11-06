@@ -25,9 +25,17 @@ const roleColors = {
     'Data Analytics': '#EADDFF'
 };
 
+let currentView = 'grid';
+let currentFilter = 'all';
+let activeRoleFilters = new Set(['All']);
+let searchTerm = '';
+
 document.addEventListener('DOMContentLoaded', function() {
     renderCards();
     initFilters();
+    initViewToggles();
+    initRoleFilters();
+    initSearch();
 });
 
 function renderCards() {
@@ -38,8 +46,20 @@ function renderCards() {
     
     container.innerHTML = '';
     
-    cardData.forEach(card => {
+    let filteredData = cardData.filter(card => {
+        if (currentFilter === 'my' && !card.teamLeader) return false;
+        if (!activeRoleFilters.has('All') && !activeRoleFilters.has(card.role)) return false;
+        if (searchTerm && !card.name.toLowerCase().includes(searchTerm) && 
+            !card.email.toLowerCase().includes(searchTerm) && 
+            !card.role.toLowerCase().includes(searchTerm)) {
+            return false;
+        }
+        return true;
+    });
+    
+    filteredData.forEach(card => {
         const clone = template.content.cloneNode(true);
+        const cardItem = clone.querySelector('.card-item');
         
         const roleBadge = clone.querySelector('[data-role]');
         const roleText = clone.querySelector('[data-role-text]');
@@ -71,8 +91,20 @@ function renderCards() {
         if (name) name.textContent = card.name;
         if (email) email.textContent = card.email;
         
+        if (currentView === 'list') {
+            const cardTop = clone.querySelector('.card-top');
+            const moreBtn = cardTop.querySelector('.more-btn');
+            cardTop.innerHTML = '';
+            cardTop.appendChild(moreBtn);
+            
+            const roleBadgeClone = roleBadge.cloneNode(true);
+            cardItem.appendChild(roleBadgeClone);
+        }
+        
         container.appendChild(clone);
     });
+    
+    container.className = currentView === 'grid' ? 'cards-grid' : 'cards-list';
 }
 
 function initFilters() {
@@ -81,6 +113,79 @@ function initFilters() {
         seg.addEventListener('click', function() {
             segments.forEach(s => s.classList.remove('active'));
             this.classList.add('active');
+            currentFilter = this.getAttribute('data-filter');
+            renderCards();
         });
     });
+}
+
+function initViewToggles() {
+    const viewButtons = document.querySelectorAll('.view-btn');
+    viewButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            viewButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentView = this.getAttribute('data-view');
+            renderCards();
+        });
+    });
+}
+
+function initRoleFilters() {
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach(chip => {
+        chip.addEventListener('click', function() {
+            const chipText = this.textContent.trim();
+            
+            if (chipText === 'All') {
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    activeRoleFilters.clear();
+                } else {
+                    chips.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    activeRoleFilters.clear();
+                    activeRoleFilters.add('All');
+                }
+            } else {
+                this.classList.toggle('active');
+                
+                if (this.classList.contains('active')) {
+                    activeRoleFilters.add(chipText);
+                } else {
+                    activeRoleFilters.delete(chipText);
+                }
+                
+                const allChip = Array.from(chips).find(c => c.textContent.trim() === 'All');
+                if (allChip) {
+                    allChip.classList.remove('active');
+                    activeRoleFilters.delete('All');
+                }
+                
+                if (activeRoleFilters.size === 0) {
+                    const allChip = Array.from(chips).find(c => c.textContent.trim() === 'All');
+                    if (allChip) {
+                        allChip.classList.add('active');
+                        activeRoleFilters.add('All');
+                    }
+                }
+            }
+            
+            renderCards();
+        });
+    });
+}
+
+function initSearch() {
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchTerm = this.value.toLowerCase().trim();
+                renderCards();
+            }, 300);
+        });
+    }
 }
