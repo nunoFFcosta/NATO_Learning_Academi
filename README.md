@@ -4,7 +4,7 @@ Team dashboard for managing and viewing team members.
 
 ## Getting Started
 
-Open `index.html` in your browser. No build process needed.
+Open `index.html` in your browser.
 
 ## Project Structure
 
@@ -24,5 +24,5 @@ NATO_Learning_Academi/
 
 - HTML5
 - CSS3
-- JavaScript (ES6+)
+- JavaScript
 - Bootstrap 5.2.3

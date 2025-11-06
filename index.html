@@ -5,36 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NATO Learning Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="app-container">
         <header class="topbar">
             <div class="topbar-left">
-                <div class="logo-placeholder">Logo</div>
+                <img src="assets/images/TopLeft.png" alt="NATO" class="logo-img">
             </div>
             <div class="topbar-center">
                 <div class="search-box">
-                    <span class="search-placeholder">🔍</span>
+                    <span class="material-symbols-rounded search-icon">search</span>
                     <input type="text" placeholder="Search here" class="search-input">
                 </div>
             </div>
             <div class="topbar-right">
                 <button class="nav-icon-btn" aria-label="Email">
-                    <span class="icon-placeholder">Mail</span>
+                    <span class="material-symbols-rounded nav-icon">mail</span>
                     <span class="badge">2</span>
                 </button>
                 <button class="nav-icon-btn" aria-label="Notifications">
-                    <span class="icon-placeholder">Notifications</span>
+                    <span class="material-symbols-rounded nav-icon">notifications</span>
                     <span class="badge">3</span>
                 </button>
                 <div class="profile-info">
-                    <div class="profile-img-placeholder">Profile</div>
+                    <img src="https://i.pravatar.cc/48?u=nuno" alt="Profile" class="profile-img" onerror="this.src='https://i.pravatar.cc/48?u=user'">
                     <div class="profile-text">
                         <div class="profile-name">Nuno Costa</div>
                         <div class="profile-email">nuno.costa@gmail.com</div>
                     </div>
-                    <span class="dropdown-placeholder">⌄</span>
+                    <span class="material-symbols-rounded dropdown-icon">keyboard_arrow_down</span>
                 </div>
             </div>
         </header>
@@ -42,11 +43,21 @@
         <div class="main-layout">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
-                    <a href="#" class="nav-link">Home</a>
-                    <a href="#" class="nav-link">Mail</a>
-                    <a href="#" class="nav-link">Calendar</a>
-                    <a href="#" class="nav-link active">People</a>
-                    <a href="#" class="nav-link">Person</a>
+                    <a href="#" class="nav-link">
+                        <span class="material-symbols-rounded nav-icon-img">home</span>
+                    </a>
+                    <a href="#" class="nav-link">
+                        <span class="material-symbols-rounded nav-icon-img">mail</span>
+                    </a>
+                    <a href="#" class="nav-link">
+                        <span class="material-symbols-rounded nav-icon-img">today</span>
+                    </a>
+                    <a href="#" class="nav-link active">
+                        <span class="material-symbols-rounded nav-icon-img">people</span>
+                    </a>
+                    <a href="#" class="nav-link">
+                        <span class="material-symbols-rounded nav-icon-img">person</span>
+                    </a>
                 </nav>
             </aside>
 
@@ -54,7 +65,9 @@
                 <div class="content-inner">
                     <div class="section-header">
                         <div class="header-left">
-                            <div class="section-icon-placeholder">Icon</div>
+                            <div class="section-icon">
+                                <img src="assets/images/TeamSimbol.png" alt="Team">
+                            </div>
                             <div class="header-text">
                                 <h1>Team Members</h1>
                                 <p>Lisbon, PT</p>
@@ -62,8 +75,12 @@
                         </div>
                         <div class="header-right">
                             <div class="view-toggles">
-                                <button class="view-btn active" data-view="grid">Grid</button>
-                                <button class="view-btn" data-view="list">List</button>
+                                <button class="view-btn active" data-view="grid">
+                                    <span class="material-symbols-rounded view-icon">grid_view</span>
+                                </button>
+                                <button class="view-btn" data-view="list">
+                                    <span class="material-symbols-rounded view-icon">view_list</span>
+                                </button>
                             </div>
                             <div class="filter-toggle">
                                 <button class="filter-segment active" data-filter="all">All</button>
@@ -99,11 +116,15 @@
         <div class="card-item">
             <div class="card-top">
                 <span class="role-badge" data-role><span data-role-text></span></span>
-                <button class="more-btn" aria-label="More options">⋯</button>
+                <button class="more-btn" aria-label="More options">
+                    <span class="material-symbols-rounded">more_horiz</span>
+                </button>
             </div>
             <div class="card-avatar-wrapper">
-                <div class="avatar-placeholder" data-image>Avatar</div>
-                <span data-team-badge class="team-badge" style="display:none;">Team Lead</span>
+                <img data-image class="card-avatar" src="" alt="">
+                <span data-team-badge class="team-badge" style="display:none;">
+                    <span class="material-symbols-rounded">groups</span>
+                </span>
             </div>
             <div class="card-info">
                 <h3 data-name></h3>
@@ -115,4 +136,3 @@
     <script src="assets/js/main.js"></script>
 </body>
 </html>
-
