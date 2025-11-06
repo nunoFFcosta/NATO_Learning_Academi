@@ -74,22 +74,8 @@ function renderCards() {
         }
         
         if (avatar) {
-            avatar.alt = card.name;
-            const avatarSize = currentView === 'list' ? 48 : 112;
             avatar.src = card.image;
-            avatar.onerror = function() {
-                if (!this.dataset.fallbackTried) {
-                    this.dataset.fallbackTried = 'true';
-                    this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(card.name)}&size=${avatarSize}&background=random&color=fff&bold=true`;
-                } else if (!this.dataset.secondFallbackTried) {
-                    this.dataset.secondFallbackTried = 'true';
-                    this.src = `https://i.pravatar.cc/${avatarSize}?u=${encodeURIComponent(card.email)}`;
-                } else if (!this.dataset.thirdFallbackTried) {
-                    this.dataset.thirdFallbackTried = 'true';
-                    const initials = card.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-                    this.src = `https://ui-avatars.com/api/?name=${initials}&size=${avatarSize}&background=2988d7&color=fff&bold=true`;
-                }
-            };
+            avatar.alt = card.name;
         }
         
         if (teamBadge) {
