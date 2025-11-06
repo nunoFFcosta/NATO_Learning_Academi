@@ -1,99 +1,80 @@
-/**
- * NATO Learning Academy - Main JavaScript File
- * ============================================
- */
+const cardData = [
+    { role: 'FE-Dev', name: 'Glenda Zieme', email: 'glenda.zieme@nato-otan.com', teamLeader: false },
+    { role: 'BE-Dev', name: 'Ryan Calzoni', email: 'ryan.calzoni@nato-otan.com', teamLeader: false },
+    { role: 'Design Lead', name: 'Carla Lipshutz', email: 'carla.lipshutz@nato-otan.com', teamLeader: true },
+    { role: 'Dev Ops', name: 'Martin Donin', email: 'martin.donin@nato-otan.com', teamLeader: false },
+    { role: 'Product Manager', name: 'Alena Bothman', email: 'alena.bothman@nato-otan.com', teamLeader: true },
+    { role: 'Customer Success', name: 'Cristofer Geidt', email: 'cristofer.geidt@nato-otan.com', teamLeader: false },
+    { role: 'FE-Dev', name: 'Marilyn Schleifer', email: 'marilyn.schleifer@nato-otan.com', teamLeader: false },
+    { role: 'Dev Lead', name: 'Randy Aminoff', email: 'randy.aminoff@nato-otan.com', teamLeader: true },
+    { role: 'FE-Dev', name: 'Glen Zieme', email: 'glen.zieme@gmail.com', teamLeader: false },
+    { role: 'Data Analytics', name: 'Jaydon Madsen', email: 'jaydon.madsen@nato-otan.com', teamLeader: false },
+    { role: 'UX Designer', name: 'Jakob Carder', email: 'jakob.carder@nato-otan.com', teamLeader: false },
+    { role: 'BE-Dev', name: 'Tatiana Mango', email: 'tatiana.mango@nato-otan.com', teamLeader: false }
+];
 
-// Wait for DOM to be fully loaded
+const roleColors = {
+    'FE-Dev': '#CFF7D3',
+    'BE-Dev': '#FFF1C2',
+    'Dev Ops': '#FDD3D0',
+    'Design Lead': '#FAE1FA',
+    'Dev Lead': '#E6E6E6',
+    'Product Manager': '#EADDFF',
+    'UX Designer': '#FFD8E4',
+    'Customer Success': '#EADDFF',
+    'Data Analytics': '#EADDFF'
+};
+
 document.addEventListener('DOMContentLoaded', function() {
-    'use strict';
-    
-    // Initialize application
-    init();
+    renderCards();
+    initFilters();
 });
 
-/**
- * Initialize the application
- */
-function init() {
-    console.log('NATO Learning Academy initialized');
+function renderCards() {
+    const container = document.getElementById('cards-container');
+    const template = document.getElementById('card-template');
     
-    // Initialize components
-    initNavbar();
-    initTooltips();
-    initOtherComponents();
-}
-
-/**
- * Initialize navbar functionality
- */
-function initNavbar() {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
+    if (!container || !template) return;
     
-    // Add scroll effect to navbar (optional)
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+    container.innerHTML = '';
+    
+    cardData.forEach(card => {
+        const clone = template.content.cloneNode(true);
+        
+        const roleBadge = clone.querySelector('[data-role]');
+        const roleText = clone.querySelector('[data-role-text]');
+        const avatarPlaceholder = clone.querySelector('[data-image]');
+        const teamBadge = clone.querySelector('[data-team-badge]');
+        const name = clone.querySelector('[data-name]');
+        const email = clone.querySelector('[data-email]');
+        
+        if (roleBadge && roleText) {
+            roleText.textContent = card.role;
+            roleBadge.style.backgroundColor = roleColors[card.role] || '#E6E6E6';
         }
+        
+        if (avatarPlaceholder) {
+            avatarPlaceholder.textContent = card.name.charAt(0);
+        }
+        
+        if (teamBadge) {
+            teamBadge.style.display = card.teamLeader ? 'inline' : 'none';
+        }
+        
+        if (name) name.textContent = card.name;
+        if (email) email.textContent = card.email;
+        
+        container.appendChild(clone);
     });
 }
 
-/**
- * Initialize Bootstrap tooltips
- */
-function initTooltips() {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-}
-
-/**
- * Initialize other Bootstrap components (popovers, etc.)
- */
-function initOtherComponents() {
-    // Initialize popovers if needed
-    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
-    });
-}
-
-/**
- * Utility function to handle smooth scrolling
- */
-function smoothScroll(target) {
-    const element = document.querySelector(target);
-    if (element) {
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+function initFilters() {
+    const segments = document.querySelectorAll('.filter-segment');
+    segments.forEach(seg => {
+        seg.addEventListener('click', function() {
+            segments.forEach(s => s.classList.remove('active'));
+            this.classList.add('active');
         });
-    }
-}
-
-/**
- * Utility function to debounce function calls
- */
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Export functions for use in other scripts (if using modules)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        smoothScroll,
-        debounce
-    };
+    });
 }
 
