@@ -13,16 +13,16 @@ const cardData = [
     { role: 'BE-Dev', name: 'Tatiana Mango', email: 'tatiana.mango@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-11.png', teamLeader: false }
 ];
 
-const roleColors = {
-    'FE-Dev': '#CFF7D3',
-    'BE-Dev': '#FFF1C2',
-    'Dev Ops': '#FDD3D0',
-    'Design Lead': '#FAE1FA',
-    'Dev Lead': '#E6E6E6',
-    'Product Manager': '#EADDFF',
-    'UX Designer': '#FFD8E4',
-    'Customer Success': '#EADDFF',
-    'Data Analytics': '#EADDFF'
+const roleLabels = {
+    'FE-Dev': 'Frontend Developer',
+    'BE-Dev': 'Backend Developer',
+    'Dev Ops': 'DevOps',
+    'Design Lead': 'Design Lead',
+    'Dev Lead': 'Development Lead',
+    'Product Manager': 'Product Manager',
+    'UX Designer': 'UX Designer',
+    'Customer Success': 'Customer Success',
+    'Data Analytics': 'Data Analytics'
 };
 
 let currentView = 'grid';
@@ -48,7 +48,7 @@ function renderCards() {
     
     let filteredData = cardData.filter(card => {
         if (showTeamLeaders && !card.teamLeader) return false;
-        if (!activeRoleFilters.has('All') && !activeRoleFilters.has(card.role)) return false;
+        if (!activeRoleFilters.has('All') && !activeRoleFilters.has(roleLabels[card.role])) return false;
         if (searchTerm && !card.name.toLowerCase().includes(searchTerm) && 
             !card.email.toLowerCase().includes(searchTerm) && 
             !card.role.toLowerCase().includes(searchTerm)) {
@@ -69,8 +69,7 @@ function renderCards() {
         const email = clone.querySelector('[data-email]');
         
         if (roleBadge && roleText) {
-            roleText.textContent = card.role;
-            roleBadge.style.backgroundColor = roleColors[card.role] || '#E6E6E6';
+            roleText.textContent = roleLabels[card.role] || card.role;
         }
         
         if (avatar) {
