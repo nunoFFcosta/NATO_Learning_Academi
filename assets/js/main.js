@@ -13,16 +13,26 @@ const cardData = [
     { role: 'BE-Dev', name: 'Tatiana Mango', email: 'tatiana.mango@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-11.png', teamLeader: false }
 ];
 
-const roleColors = {
-    'FE-Dev': '#CFF7D3',
-    'BE-Dev': '#FFF1C2',
+const roleTeams = {
+    'FE-Dev': 'Development',
+    'BE-Dev': 'Development',
+    'Dev Lead': 'Operations',
+    'Dev Ops': 'Dev Ops',
+    'Design Lead': 'Design',
+    'UX Designer': 'Design',
+    'Product Manager': 'Product Management',
+    'Customer Success': 'Customer Success',
+    'Data Analytics': 'Data Analytics'
+};
+
+const teamColors = {
+    'Customer Success': '#E4E0FF',
+    'Development': '#CFF7D3',
+    'Design': '#FFD8E4',
+    'Data Analytics': '#FAE1FA',
     'Dev Ops': '#FDD3D0',
-    'Design Lead': '#FAE1FA',
-    'Dev Lead': '#E6E6E6',
-    'Product Manager': '#EADDFF',
-    'UX Designer': '#FFD8E4',
-    'Customer Success': '#EADDFF',
-    'Data Analytics': '#EADDFF'
+    'Product Management': '#FFF1C2',
+    'Operations': '#E6E6E6'
 };
 
 let currentView = 'grid';
@@ -46,15 +56,18 @@ function renderCards() {
     
     container.innerHTML = '';
     
-    let filteredData = cardData.filter(card => {
+    const query = searchTerm.trim();
+
+    const filteredData = cardData.filter(card => {
+        const team = roleTeams[card.role] || 'Operations';
         if (showTeamLeaders && !card.teamLeader) return false;
-        if (!activeRoleFilters.has('All') && !activeRoleFilters.has(card.role)) return false;
-        if (searchTerm && !card.name.toLowerCase().includes(searchTerm) && 
-            !card.email.toLowerCase().includes(searchTerm) && 
-            !card.role.toLowerCase().includes(searchTerm)) {
-            return false;
-        }
-        return true;
+        if (!activeRoleFilters.has('all') && !activeRoleFilters.has(team)) return false;
+        if (!query) return true;
+
+        const haystack = [card.name, card.email, card.role, team]
+            .join(' ') 
+            .toLowerCase();
+        return haystack.includes(query);
     });
     
     filteredData.forEach(card => {
@@ -68,9 +81,10 @@ function renderCards() {
         const name = clone.querySelector('[data-name]');
         const email = clone.querySelector('[data-email]');
         
+        const team = roleTeams[card.role] || 'Operations';
         if (roleBadge && roleText) {
             roleText.textContent = card.role;
-            roleBadge.style.backgroundColor = roleColors[card.role] || '#E6E6E6';
+            roleBadge.style.backgroundColor = teamColors[team] || '#E6E6E6';
         }
         
         if (avatar) {
@@ -86,33 +100,21 @@ function renderCards() {
         if (email) email.textContent = card.email;
         
         if (currentView === 'list') {
-            const cardTop = clone.querySelector('.card-top');
-            const moreBtn = cardTop.querySelector('.more-btn');
-            const avatarWrapper = clone.querySelector('.card-avatar-wrapper');
-            const cardInfo = clone.querySelector('.card-info');
-            
-            cardTop.remove();
-            
-            const leftSection = document.createElement('div');
-            leftSection.style.display = 'flex';
-            leftSection.style.gap = '12px';
-            leftSection.style.flex = '1';
-            leftSection.style.alignItems = 'center';
-            leftSection.style.minWidth = '0';
-            
-            leftSection.appendChild(avatarWrapper);
-            leftSection.appendChild(cardInfo);
-            
+            const header = clone.querySelector('.card-top');
+            const actions = header.querySelector('.more-btn');
+            const avatar = clone.querySelector('.card-avatar-wrapper');
+            const info = clone.querySelector('.card-info');
+
+            const listMain = document.createElement('div');
+            listMain.className = 'list-main';
+            listMain.append(avatar, info);
+
+            const badgeWrapper = document.createElement('div');
+            badgeWrapper.className = 'role-badge-container';
+            badgeWrapper.append(roleBadge.cloneNode(true));
+
             cardItem.innerHTML = '';
-            cardItem.appendChild(leftSection);
-            
-            const roleBadgeClone = roleBadge.cloneNode(true);
-            const roleBadgeWrapper = document.createElement('div');
-            roleBadgeWrapper.className = 'role-badge-container';
-            roleBadgeWrapper.appendChild(roleBadgeClone);
-            
-            cardItem.appendChild(roleBadgeWrapper);
-            cardItem.appendChild(moreBtn);
+            cardItem.append(listMain, badgeWrapper, actions);
         }
         
         container.appendChild(clone);
@@ -149,29 +151,29 @@ function initRoleFilters() {
     const chips = document.querySelectorAll('.chip');
     chips.forEach(chip => {
         chip.addEventListener('click', function() {
-            const chipText = this.textContent.trim();
+            const team = this.dataset.team;
             
-            if (chipText === 'All') {
+            if (team === 'all') {
                 chips.forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
                 activeRoleFilters.clear();
-                activeRoleFilters.add('All');
+                activeRoleFilters.add('all');
             } else {
                 this.classList.toggle('active');
-                const allChip = Array.from(chips).find(c => c.textContent.trim() === 'All');
+                const allChip = Array.from(chips).find(c => c.dataset.team === 'all');
                 if (allChip) allChip.classList.remove('active');
-                activeRoleFilters.delete('All');
+                activeRoleFilters.delete('all');
                 
                 if (this.classList.contains('active')) {
-                    activeRoleFilters.add(chipText);
+                    activeRoleFilters.add(team);
                 } else {
-                    activeRoleFilters.delete(chipText);
+                    activeRoleFilters.delete(team);
                 }
                 
                 if (activeRoleFilters.size === 0) {
                     if (allChip) {
                         allChip.classList.add('active');
-                        activeRoleFilters.add('All');
+                        activeRoleFilters.add('all');
                     }
                 }
             }
@@ -183,10 +185,10 @@ function initRoleFilters() {
 
 function initSearch() {
     const searchInput = document.querySelector('.search-input');
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            searchTerm = this.value.toLowerCase().trim();
-            renderCards();
-        });
-    }
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', () => {
+        searchTerm = searchInput.value.toLowerCase();
+        renderCards();
+    });
 }

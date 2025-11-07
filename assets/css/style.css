@@ -501,14 +501,6 @@ body {
     display: none;
 }
 
-.cards-list .card-item > div:first-child {
-    display: flex;
-    gap: 12px;
-    flex: 1;
-    align-items: center;
-    min-width: 0;
-}
-
 .cards-list .card-avatar-wrapper {
     width: 48px;
     height: 48px;
@@ -518,7 +510,7 @@ body {
 .cards-list .card-avatar {
     width: 48px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: 6px;
 }
 
 .cards-list .team-badge {
@@ -539,6 +531,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+
+.list-main {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
 }
 
 .role-badge-container {
@@ -740,19 +740,8 @@ body {
         gap: 0;
     }
 
-    .cards-list .card-item > div:first-child {
-        gap: 12px;
+    .cards-list .list-main {
         padding-right: 64px;
-    }
-
-    .cards-list .card-avatar-wrapper {
-        width: 48px;
-        height: 48px;
-    }
-
-    .cards-list .card-avatar {
-        width: 48px;
-        height: 48px;
     }
 
     .role-badge-container {
@@ -761,10 +750,6 @@ body {
         right: 6px;
         width: auto;
         justify-content: flex-end;
-    }
-
-    .role-badge-container .role-badge {
-        width: auto;
     }
 
     .cards-list .card-item > .more-btn {
