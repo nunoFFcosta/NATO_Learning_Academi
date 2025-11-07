@@ -1,16 +1,16 @@
 const cardData = [
-    { role: 'FE-Dev', name: 'Glenda Zieme', email: 'glenda.zieme@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img.png', teamLeader: false },
-    { role: 'BE-Dev', name: 'Ryan Calzoni', email: 'ryan.calzoni@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-1.png', teamLeader: false },
-    { role: 'Design Lead', name: 'Carla Lipshutz', email: 'carla.lipshutz@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-2.png', teamLeader: true },
-    { role: 'Dev Ops', name: 'Martin Donin', email: 'martin.donin@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-3.png', teamLeader: false },
-    { role: 'Product Manager', name: 'Alena Bothman', email: 'alena.bothman@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-4.png', teamLeader: true },
-    { role: 'Customer Success', name: 'Cristofer Geidt', email: 'cristofer.geidt@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-5.png', teamLeader: false },
-    { role: 'FE-Dev', name: 'Marilyn Schleifer', email: 'marilyn.schleifer@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-6.png', teamLeader: false },
-    { role: 'Dev Lead', name: 'Randy Aminoff', email: 'randy.aminoff@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-7.png', teamLeader: true },
-    { role: 'FE-Dev', name: 'Glen Zieme', email: 'glen.zieme@gmail.com', image: 'assets/images/Profile_Imgs/Profile Img-8.png', teamLeader: false },
-    { role: 'Data Analytics', name: 'Jaydon Madsen', email: 'jaydon.madsen@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-9.png', teamLeader: false },
-    { role: 'UX Designer', name: 'Jakob Carder', email: 'jakob.carder@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-10.png', teamLeader: false },
-    { role: 'BE-Dev', name: 'Tatiana Mango', email: 'tatiana.mango@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-11.png', teamLeader: false }
+    { role: 'FE-Dev', name: 'Glenda Zieme', email: 'glenda.zieme@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img.png', teamLeader: false, online: true },
+    { role: 'BE-Dev', name: 'Ryan Calzoni', email: 'ryan.calzoni@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-1.png', teamLeader: false, online: true },
+    { role: 'Design Lead', name: 'Carla Lipshutz', email: 'carla.lipshutz@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-2.png', teamLeader: true, online: true },
+    { role: 'Dev Ops', name: 'Martin Donin', email: 'martin.donin@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-3.png', teamLeader: false, online: false },
+    { role: 'Product Manager', name: 'Alena Bothman', email: 'alena.bothman@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-4.png', teamLeader: true, online: true },
+    { role: 'Customer Success', name: 'Cristofer Geidt', email: 'cristofer.geidt@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-5.png', teamLeader: false, online: true },
+    { role: 'FE-Dev', name: 'Marilyn Schleifer', email: 'marilyn.schleifer@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-6.png', teamLeader: false, online: false },
+    { role: 'Dev Lead', name: 'Randy Aminoff', email: 'randy.aminoff@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-7.png', teamLeader: true, online: false },
+    { role: 'FE-Dev', name: 'Glen Zieme', email: 'glen.zieme@gmail.com', image: 'assets/images/Profile_Imgs/Profile Img-8.png', teamLeader: false, online: false },
+    { role: 'Data Analytics', name: 'Jaydon Madsen', email: 'jaydon.madsen@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-9.png', teamLeader: false, online: false },
+    { role: 'UX Designer', name: 'Jakob Carder', email: 'jakob.carder@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-10.png', teamLeader: false, online: true },
+    { role: 'BE-Dev', name: 'Tatiana Mango', email: 'tatiana.mango@nato-otan.com', image: 'assets/images/Profile_Imgs/Profile Img-11.png', teamLeader: false, online: true }
 ];
 
 const roleTeams = {
@@ -73,6 +73,9 @@ function renderCards() {
     filteredData.forEach(card => {
         const clone = template.content.cloneNode(true);
         const cardItem = clone.querySelector('.card-item');
+        if (!card.online) {
+            cardItem.classList.add('is-offline');
+        }
         
         const roleBadge = clone.querySelector('[data-role]');
         const roleText = clone.querySelector('[data-role-text]');
