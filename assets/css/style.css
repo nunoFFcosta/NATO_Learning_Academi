@@ -774,8 +774,8 @@ body {
     }
 
     .site-footer {
-        padding: 8px 16px;
-        margin-top: 24px;
+        padding: 0px;
+        margin-top: 0px;
     }
 }
 
