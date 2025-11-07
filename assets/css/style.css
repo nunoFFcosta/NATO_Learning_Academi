@@ -75,7 +75,6 @@ body {
 
 .topbar-content {
     width: 100%;
-    max-width: 1440px;
     display: flex;
     align-items: center;
     gap: 24px;
@@ -93,9 +92,16 @@ body {
     flex-shrink: 0;
 }
 
-.search-box {
+.topbar-search {
     flex: 1;
+    display: flex;
+    justify-content: center;
     min-width: 0;
+}
+
+.search-box {
+    width: 100%;
+    max-width: 1440px;
     height: 38px;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 4px;
@@ -683,6 +689,10 @@ body {
         display: flex;
     }
 
+    .topbar-search {
+        display: none;
+    }
+
     .search-box {
         display: none;
     }
@@ -762,3 +772,10 @@ body {
         top: 28px;
         right: 6px;
     }
+}
+
+@media (min-width: 1996px) {
+    .topbar-search {
+        padding-left: 156px;
+    }
+}
