@@ -13,29 +13,34 @@
         <header class="topbar">
             <div class="topbar-left">
                 <img src="assets/images/TopLeft.png" alt="NATO" class="logo-img">
+                <button class="burger-btn" aria-label="Open navigation">
+                    <span class="material-symbols-rounded">menu</span>
+                </button>
             </div>
             <div class="topbar-center">
-                <div class="search-box">
-                    <span class="material-symbols-rounded search-icon">search</span>
-                    <input type="text" placeholder="Search here" class="search-input">
-                </div>
-            </div>
-            <div class="topbar-right">
-                <button class="nav-icon-btn" aria-label="Email">
-                    <span class="material-symbols-rounded nav-icon">mail</span>
-                    <span class="badge">2</span>
-                </button>
-                <button class="nav-icon-btn" aria-label="Notifications">
-                    <span class="material-symbols-rounded nav-icon">notifications</span>
-                    <span class="badge">3</span>
-                </button>
-                <div class="profile-info">
-                    <img src="https://i.pravatar.cc/48?u=nuno" alt="Profile" class="profile-img" onerror="this.src='https://i.pravatar.cc/48?u=user'">
-                    <div class="profile-text">
-                        <div class="profile-name">Nuno Costa</div>
-                        <div class="profile-email">nuno.costa@gmail.com</div>
+                <div class="topbar-content">
+                    <div class="topbar-title">Academy Learning</div>
+                    <div class="search-box">
+                        <input type="text" placeholder="Search here" class="search-input">
                     </div>
-                    <span class="material-symbols-rounded dropdown-icon">keyboard_arrow_down</span>
+                    <div class="topbar-actions">
+                        <button class="nav-icon-btn" aria-label="Email">
+                            <span class="material-symbols-rounded nav-icon">mail</span>
+                            <span class="badge">2</span>
+                        </button>
+                        <button class="nav-icon-btn" aria-label="Notifications">
+                            <span class="material-symbols-rounded nav-icon">notifications</span>
+                            <span class="badge">3</span>
+                        </button>
+                        <div class="profile-info">
+                            <img src="https://i.pravatar.cc/48?u=nuno" alt="Profile" class="profile-img" onerror="this.src='https://i.pravatar.cc/48?u=user'">
+                            <div class="profile-text">
+                                <div class="profile-name">Nuno Costa</div>
+                                <div class="profile-email">nuno.costa@gmail.com</div>
+                            </div>
+                            <span class="material-symbols-rounded dropdown-icon">keyboard_arrow_down</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -84,7 +89,7 @@
                             </div>
                             <div class="filter-toggle">
                                 <button class="filter-segment active" data-filter="all">All</button>
-                                <button class="filter-segment" data-filter="my">My Team</button>
+                                <button class="filter-segment" data-filter="leaders">Team Leaders</button>
                             </div>
                         </div>
                     </div>
@@ -93,15 +98,15 @@
                         <span class="filter-label">Show:</span>
                         <div class="filter-chips">
                             <span class="chip active">All</span>
+                            <span class="chip">Team Leaders</span>
                             <span class="chip">BE-Dev</span>
-                            <span class="chip">Customer Success</span>
-                            <span class="chip">Data Analitcs</span>
-                            <span class="chip">Designer Lead</span>
+                            <span class="chip">FE-Dev</span>
+                            <span class="chip">Design Lead</span>
                             <span class="chip">Dev Lead</span>
                             <span class="chip">Dev Ops</span>
-                            <span class="chip">FE-Dev</span>
-                            <span class="chip">Team Leaders</span>
                             <span class="chip">Product Manager</span>
+                            <span class="chip">Customer Success</span>
+                            <span class="chip">Data Analytics</span>
                             <span class="chip">UX Designer</span>
                         </div>
                     </div>

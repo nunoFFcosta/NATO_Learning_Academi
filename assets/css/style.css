@@ -40,8 +40,7 @@ body {
     border-bottom: 1px solid rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
-    padding-left: 0;
-    padding-right: 32px;
+    padding: 0;
     gap: 0;
     position: sticky;
     top: 0;
@@ -57,6 +56,7 @@ body {
     flex-shrink: 0;
     padding: 0;
     margin: 0;
+    position: relative;
 }
 
 .logo-img {
@@ -69,27 +69,39 @@ body {
 .topbar-center {
     flex: 1;
     display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.topbar-content {
+    width: 100%;
+    max-width: 1440px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
     justify-content: flex-start;
-    padding-left: 32px;
-    margin-left: 0;
+    margin: 0 auto;
+    padding: 20px 32px;
+}
+
+.topbar-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #000;
+    letter-spacing: -0.1px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .search-box {
-    width: 100%;
-    max-width: 1288px;
+    flex: 1;
+    min-width: 0;
     height: 38px;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 4px;
     display: flex;
     align-items: center;
     padding: 0 16px;
-    gap: 10px;
-}
-
-.search-icon {
-    font-size: 20px;
-    color: rgba(0,0,0,0.3);
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .search-input {
@@ -105,10 +117,25 @@ body {
     color: rgba(0,0,0,0.3);
 }
 
-.topbar-right {
-    display: flex;
+.burger-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    border-radius: 4px;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+}
+
+.burger-btn .material-symbols-rounded {
+    font-size: 28px;
+    color: rgba(0,0,0,0.8);
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
 }
 
 .nav-icon-btn {
@@ -254,6 +281,13 @@ body {
     color: #fff;
 }
 
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+}
+
 .content-area {
     flex: 1;
     background: #F6F7FB;
@@ -261,7 +295,7 @@ body {
 }
 
 .content-inner {
-    max-width: 1288px;
+    max-width: 1440px;
     margin: 0 auto;
 }
 
@@ -358,13 +392,14 @@ body {
 }
 
 .filter-toggle {
-    width: 215px;
+    width: 240px;
     height: 36px;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 9999px;
     padding: 1px;
     position: relative;
     display: flex;
+    gap: 2px;
 }
 
 .filter-segment {
@@ -374,33 +409,28 @@ body {
     padding: 8px 24px;
     border-radius: 9999px;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     color: rgba(0,0,0,0.6);
     cursor: pointer;
     position: relative;
     z-index: 1;
-    transition: color 0.2s;
+    transition: color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
 }
 
 .filter-segment.active {
     background: #2988d7;
     color: #fff;
+    font-weight: 500;
     box-shadow: 0px 4px 4px rgba(12,12,13,0.1), 0px 4px 4px rgba(12,12,13,0.05);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 108px;
-    height: 100%;
-    z-index: 2;
-    transition: left 0.2s ease;
 }
 
-.filter-segment[data-filter="my"].active {
-    left: 107px;
-}
-
-.filter-segment[data-filter="all"].active {
-    left: 0;
+.filter-segment:first-child,
+.filter-segment:last-child {
+    justify-content: center;
 }
 
 .filter-row {
@@ -457,23 +487,23 @@ body {
     flex-direction: row;
     align-items: center;
     padding: 16px;
-    gap: 12px;
-    justify-content: space-between;
+    gap: 24px;
+    position: relative;
 }
 
 .cards-list .card-top {
-    order: 4;
-    width: auto;
-    flex: 0 0 auto;
-    justify-content: flex-end;
-}
-
-.cards-list .card-top .role-badge {
     display: none;
 }
 
+.cards-list .card-item > div:first-child {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    align-items: center;
+    min-width: 0;
+}
+
 .cards-list .card-avatar-wrapper {
-    order: 1;
     width: 48px;
     height: 48px;
     flex-shrink: 0;
@@ -482,6 +512,7 @@ body {
 .cards-list .card-avatar {
     width: 48px;
     height: 48px;
+    border-radius: 12px;
 }
 
 .cards-list .team-badge {
@@ -496,17 +527,28 @@ body {
 }
 
 .cards-list .card-info {
-    order: 2;
     flex: 1;
     text-align: left;
     min-width: 0;
-    margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.cards-list .card-item > .role-badge {
-    order: 3;
-    margin-left: auto;
-    margin-right: 12px;
+.role-badge-container {
+    width: 112px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.role-badge-container .role-badge {
+    width: auto;
+}
+
+.cards-list .card-item > .more-btn {
+    flex-shrink: 0;
 }
 
 .card-item {
@@ -614,24 +656,40 @@ body {
 @media (max-width: 768px) {
     .topbar {
         height: 74px;
-        padding: 0 16px;
+        padding: 0;
     }
 
     .topbar-left {
         width: 68px;
+        justify-content: flex-start;
     }
 
     .logo-img {
-        width: 40px;
-        height: 40px;
+        display: none;
     }
 
     .topbar-center {
         flex: 1;
+        padding: 0;
+    }
+
+    .topbar-content {
+        max-width: 100%;
+        padding: 0 16px;
+        gap: 16px;
+    }
+
+    .burger-btn {
+        display: flex;
     }
 
     .search-box {
-        max-width: none;
+        display: none;
+    }
+
+    .topbar-actions {
+        gap: 12px;
+        margin-left: auto;
     }
 
     .profile-info {
@@ -666,8 +724,41 @@ body {
         width: 215px;
     }
 
-    .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
+    .cards-list .card-item {
+        position: relative;
+        padding: 16px;
+        gap: 0;
     }
-}
+
+    .cards-list .card-item > div:first-child {
+        gap: 12px;
+        padding-right: 64px;
+    }
+
+    .cards-list .card-avatar-wrapper {
+        width: 48px;
+        height: 48px;
+    }
+
+    .cards-list .card-avatar {
+        width: 48px;
+        height: 48px;
+    }
+
+    .role-badge-container {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: auto;
+        justify-content: flex-end;
+    }
+
+    .role-badge-container .role-badge {
+        width: auto;
+    }
+
+    .cards-list .card-item > .more-btn {
+        position: absolute;
+        top: 28px;
+        right: 6px;
+    }
