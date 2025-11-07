@@ -37,7 +37,7 @@ const teamColors = {
 
 let currentView = 'grid';
 let showTeamLeaders = false;
-let activeRoleFilters = new Set(['All']);
+let activeRoleFilters = new Set(['all']);
 let searchTerm = '';
 
 document.addEventListener('DOMContentLoaded', function() {
